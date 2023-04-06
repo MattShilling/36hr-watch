@@ -1,4 +1,4 @@
-FROM ubuntu:22.10
+FROM emscripten/emsdk:3.1.35
 
 # TODO: install emscripten (https://emscripten.org/docs/getting_started/downloads.html)
 
@@ -13,7 +13,7 @@ ARG AARCH64_TOOLCHAIN_FILENAME="gcc-arm-none-eabi-10.3-2021.07-aarch64-linux.tar
 ARG AARCH64_TOOLCHAIN="https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.07/gcc-arm-none-eabi-10.3-2021.07-aarch64-linux.tar.bz2"
 ARG AARCH64_TOOLCHAIN_CHECKSUM="c20b0535d01f8d4418341d893c62a782"
 
-WORKDIR /setup
+WORKDIR /watch
 
 # Install required packages
 RUN apt-get update \
