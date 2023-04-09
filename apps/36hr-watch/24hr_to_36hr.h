@@ -89,10 +89,10 @@ watch_36hr_date_time to_36_hr_date(uint32_t year, uint32_t month, uint32_t day,
   // Calculate the total number of hours that have passed from the beginning of
   // the current month until the current hour of the current day.
   uint32_t total_hrs_elapsed = ((day - 1) * 24) + hour;
-  uint32_t day_converted = floor(total_hrs_elapsed / 36) + 1;
-  uint32_t hour_converted =
-      (total_hrs_elapsed - ((uint32_t)floor(total_hrs_elapsed / 36) * 36)) %
-      get_num_hours_in_day(year, month, day_converted);
+  uint32_t days_elapsed = (uint32_t)floor(total_hrs_elapsed / 36);
+  uint32_t day_converted = days_elapsed + 1;
+  uint32_t hour_converted = (total_hrs_elapsed - (days_elapsed * 36)) %
+                            get_num_hours_in_day(year, month, day_converted);
 
   watch_36hr_date_time converted_date = {.second = second,
                                          .minute = minute,
