@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "24hr_to_36hr.h"
+
 const int8_t UTC_OFFSET =
     4; // set to your current UTC offset to see correct beats time
 const uint8_t BEAT_REFRESH_FREQUENCY = 8;

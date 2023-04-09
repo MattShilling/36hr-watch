@@ -5,6 +5,7 @@
 #include <stdint.h>
 
 #include "36hr.h"
+#include "watch_rtc.h"
 
 bool is_leap_year(int year) {
   return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
@@ -78,28 +79,27 @@ uint32_t get_num_hours_in_day(uint32_t year, uint32_t month, uint32_t day) {
   return 0;
 }
 
-watch_36hr_date_time to_36_hr_date(uint32_t year, uint32_t month, uint32_t day,
-                                   uint32_t hour, uint32_t minute,
-                                   uint32_t second) {
-  if (day == 0) {
+watch_36hr_date_time watch_date_time_to_36hr(watch_date_time date) {
+  if (date.unit.day == 0) {
     watch_36hr_date_time invalid_date = {
         .second = 0, .minute = 0, .hour = 0, .day = 0, .month = 0, .year = 0};
     return invalid_date;
   }
   // Calculate the total number of hours that have passed from the beginning of
   // the current month until the current hour of the current day.
-  uint32_t total_hrs_elapsed = ((day - 1) * 24) + hour;
+  uint32_t total_hrs_elapsed = ((date.unit.day - 1) * 24) + date.unit.hour;
   uint32_t days_elapsed = (uint32_t)floor(total_hrs_elapsed / 36);
   uint32_t day_converted = days_elapsed + 1;
-  uint32_t hour_converted = (total_hrs_elapsed - (days_elapsed * 36)) %
-                            get_num_hours_in_day(year, month, day_converted);
+  uint32_t hour_converted =
+      (total_hrs_elapsed - (days_elapsed * 36)) %
+      get_num_hours_in_day(date.unit.year, date.unit.month, day_converted);
 
-  watch_36hr_date_time converted_date = {.second = second,
-                                         .minute = minute,
+  watch_36hr_date_time converted_date = {.second = date.unit.second,
+                                         .minute = date.unit.minute,
                                          .hour = hour_converted,
                                          .day = day_converted,
-                                         .month = month,
-                                         .year = year};
+                                         .month = date.unit.month,
+                                         .year = date.unit.year};
 
   return converted_date;
 }
