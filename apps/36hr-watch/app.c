@@ -130,9 +130,9 @@ void do_36_hr_clock_mode(void) {
   const char months[12][3] = {"JA", "FE", "MR", "AR", "MA", "JN",
                               "JL", "AU", "SE", "OC", "NO", "dE"};
 
-  watch_display_string((char *)months[date_time.unit.month - 1], 0);
-  sprintf(buf, "%2d%2d%02d%02d", date_time.unit.day, date_time.unit.hour,
-          date_time.unit.minute, date_time.unit.second);
+  watch_display_string((char *)months[date_time.month - 1], 0);
+  sprintf(buf, "%2d%2d%02d%02d", date_time.day, date_time.hour,
+          date_time.minute, date_time.second);
   watch_display_string(buf, 2);
   watch_set_colon();
 }
